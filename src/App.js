@@ -53,7 +53,7 @@ class App extends React.Component {
     return(
       <div>
   
-        <Header />
+        <Header currentUser={this.state.currentUser}/>
   
          <Route exact path="/" component={HomePage} />
          <Route path="/shop" component={ShopPage} />
@@ -62,6 +62,6 @@ class App extends React.Component {
   )};
 }
 
-
 export default App;
+
 
