@@ -9,24 +9,59 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import Header from './components/header/header.component';
 
-// const HatsPage = () => (
-//   <div>
-//     <h1>Hats Page</h1>
-//   </div>
-// );
+import { auth } from './firebase/firebase.utils';
 
-function App() {
-  return (
-    <div>
+import React from 'react';
+//using from library
 
-      <Header />
 
-       <Route exact path="/" component={HomePage} />
-       <Route path="/shop" component={ShopPage} />
-       <Route path="/signin" component={SignInAndSignUpPage}/>
-    </div>
-  );
+
+//taking a class with the replacement of previous function
+class App extends React.Component {
+  constructor()
+  {
+    super();
+    this.state = {
+      currentUser : null
+    }
+  }
+
+
+  unscribeFromAuth = null;
+
+
+  //checking which user are login or logout from the google account on this APPLICATION
+  componentDidMount(){
+    
+    // auth.onAuthStateChanged(user => {
+    //   this.setState({currentUser : user});
+    //   console.log(user);
+    // });
+
+    this.unscribeFromAuth = auth.onAuthStateChanged(user => {
+      this.setState( {currentUser : user} );
+      console.log(user)
+    });
+  }
+
+  //unmount the login
+  componentWillUnmount(){
+    this.unscribeFromAuth();
+  }
+
+  render(){
+    return(
+      <div>
+  
+        <Header />
+  
+         <Route exact path="/" component={HomePage} />
+         <Route path="/shop" component={ShopPage} />
+         <Route path="/signin" component={SignInAndSignUpPage}/>
+      </div>
+  )};
 }
+
 
 export default App;
 
