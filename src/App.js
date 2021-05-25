@@ -9,11 +9,10 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import Header from './components/header/header.component';
 
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import React from 'react';
 //using from library
-
 
 
 //taking a class with the replacement of previous function
@@ -38,8 +37,11 @@ class App extends React.Component {
     //   console.log(user);
     // });
 
-    this.unscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState( {currentUser : user} );
+
+    //getting user information from firebase
+    this.unscribeFromAuth = auth.onAuthStateChanged(async user => {
+      // this.setState( {currentUser : user} );
+      createUserProfileDocument(user);
       console.log(user)
     });
   }
