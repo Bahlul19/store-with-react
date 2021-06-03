@@ -22,7 +22,7 @@ const config = {
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;
     // const userRef = firestore.doc('users/tausifNew'); this is statis one.
-    const userRef = firestore.doc(`users/${userAuth.uid}`);
+    const userRef = firestore.doc( `users/${userAuth.uid}` );
 
     //snap that create the data
     const snapShot = await userRef.get();

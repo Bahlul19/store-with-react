@@ -25,30 +25,36 @@ class App extends React.Component {
     }
   }
 
+  unsubscribeFromAuth = null;
 
-  unscribeFromAuth = null;
-
-
-  //checking which user are login or logout from the google account on this APPLICATION
   componentDidMount(){
-    
-    // auth.onAuthStateChanged(user => {
-    //   this.setState({currentUser : user});
-    //   console.log(user);
-    // });
 
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
-    //getting user information from firebase
-    this.unscribeFromAuth = auth.onAuthStateChanged(async user => {
-      // this.setState( {currentUser : user} );
-      createUserProfileDocument(user);
-      console.log(user)
-    });
-  }
+      if(userAuth){
 
-  //unmount the login
-  componentWillUnmount(){
-    this.unscribeFromAuth();
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+          
+        });
+        
+      }
+
+      else{
+      this.setState({
+        currentUser: userAuth
+      });
+    }
+
+    }); 
   }
 
   render(){
