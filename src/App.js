@@ -43,6 +43,8 @@ class App extends React.Component {
               ...snapShot.data()
             }
           });
+
+          console.log(this.state);
           
         });
         
@@ -55,6 +57,10 @@ class App extends React.Component {
     }
 
     }); 
+  }
+
+  componentWillUnmount(){
+    this.unsubscribeFromAuth();
   }
 
   render(){

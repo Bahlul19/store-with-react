@@ -31,7 +31,7 @@ class Signup extends React.Component{
 
         try{
 
-            const {user} = await auth.createUserWithEmailAndPassword(emai, password);
+            const {user} = await auth.createUserWithEmailAndPassword(email, password);
 
             await createUserProfileDocument(user, {displayName});
 
@@ -64,33 +64,33 @@ class Signup extends React.Component{
                     name='displayName' 
                     type='text' 
                     value={this.state.displayName} 
-                    handleChange={this.state.handleChange} 
-                    label="Display Name"
-                    required/>
+                    handleChange={this.handleChange} 
+                    placeholder="Display Name"
+                    required />
 
                     <FormInput 
                     name='email' 
                     type='email' 
                     value={this.state.email} 
-                    handleChange={this.state.handleChange} 
-                    label="Email"
-                    required/>
+                    handleChange={this.handleChange} 
+                    placeholder="Email"
+                    required />
 
                     <FormInput 
                     name='password' 
                     type='password' 
                     value={this.state.password} 
-                    handleChange={this.state.handleChange} 
-                    label="Password"
-                    required/>
+                    handleChange={this.handleChange} 
+                    placeholder="Password"
+                    required />
 
                     <FormInput 
                     name='confirmPassword' 
                     type='password' 
                     value={this.state.confirmPassword} 
-                    handleChange={this.state.handleChange} 
-                    label="Confirm Password"
-                    required/>
+                    handleChange={this.handleChange} 
+                    placeholder="Confirm Password"
+                    required />
 
                     <CustomButton type='submit'>SIGN IN</CustomButton>
 
