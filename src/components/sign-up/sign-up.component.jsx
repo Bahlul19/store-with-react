@@ -47,10 +47,44 @@ class Signup extends React.Component{
         }
     };
 
+    //new same code
+    handleSubmitNew = async event => {
+        event.preventDefault();
+        const{displayName, email, password, confirmPassword} = this.state;
+        if(password != confrimPassword)
+        {
+            alert("Password don't match with confrim password");
+        }
+
+        try{
+            const {user} = await auth.createUserWithEmailAndPassword(email, password);
+            
+            await createUserProfileDocument(user, {displayName});
+
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                confrimPassword: ''
+            });
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+    //new same code end
+
     handleChange = event => {
         const { name, value } = event.target;
         this.setState( {[name]: value });
     }
+
+    //new same code
+    handleChangeNew = event => {
+        const{ name, value } = event.target;
+        this.setState( {[name]: value });
+    }
+    //new same code end
 
     render(){
         return(
@@ -58,8 +92,8 @@ class Signup extends React.Component{
                 <h2 className='title'>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
 
-                <form className='sign-up-form' onSubmit={this.handleSubmit}>
-
+                <form className='sign-up-form' onSubmit={this.handleSubmit}> 
+                
                     <FormInput 
                     name='displayName' 
                     type='text' 
